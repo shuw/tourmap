@@ -6,8 +6,12 @@ select * from (
 		l.sale_date, 
 		l.sale_price,
 		l.original_price,
+		l.sale_price / l.approx_sq_ft as price_sqft,
 		l.list_price,
 		l.listing_date,
+		l.property_type_id,
+		l.effective_cdom_date,
+		l.is_short_sale,
 		la.listing_agent_id, 
 		la.first_name || ' ' || la.last_name as listing_agent_name,
 		sa.listing_agent_id as selling_agent_id,
@@ -30,5 +34,6 @@ select * from (
 		where
 			l.search_status_id = 4 and	
 			l.primary_market_id = 1 and -- Seattle
-			l.sale_date >= '1/1/2000'
+			l.user_visible = true and
+			l.sale_date >= '1/1/2010'
 	) solds
